@@ -1,5 +1,5 @@
 {
-  "originHash" : "e8f130fe30ac6cdc940ef06ee1e8535e9f46ffee6aeead1722b9525562f6ce08",
+  "originHash" : "9fdd8f6d77eb4a05154bd1c49c09c523982aa5e0408365dfc102ffee4411c60a",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,6 +8,33 @@
       "state" : {
         "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
         "version" : "5.9.1"
+      }
+    },
+    {
+      "identity" : "flowstacks",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/johnpatrickmorgan/FlowStacks",
+      "state" : {
+        "revision" : "ec949d86c1424a5a09df005a406d5dbeebed7c7c",
+        "version" : "0.8.2"
+      }
+    },
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "8a1be70a625683bc04d6903e2935bf23f3c6d609",
+        "version" : "5.19.7"
+      }
+    },
+    {
+      "identity" : "sdwebimageswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
+      "state" : {
+        "revision" : "5aa947356f4ea49a0c3b9968564267f6ea5abea7",
+        "version" : "3.1.2"
       }
     }
   ],
