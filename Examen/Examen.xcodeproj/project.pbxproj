@@ -87,7 +87,6 @@
 				AE9273B52CB1F8E600757349 /* Examen */,
 				AE9273C82CB1F8E700757349 /* ExamenTests */,
 				AE9273D22CB1F8E700757349 /* ExamenUITests */,
-				AE9274262CB1FF7300757349 /* Frameworks */,
 				AE9273B42CB1F8E600757349 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,13 +99,6 @@
 				AE9273CF2CB1F8E700757349 /* ExamenUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		AE9274262CB1FF7300757349 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
