@@ -13,11 +13,13 @@ class CharacterRepository: CharacterRequirement {
     private let limit = 10
     private var totalPages = 1
     private var isFetching = false
+    private var allCharacters: [Character] = []
     
     func getCharacters(reset: Bool = false) async throws -> [Character] {
         if reset {
             currentPage = 1
             totalPages = 1
+            allCharacters = []
         }
         
         guard !isFetching else { return [] }
@@ -35,6 +37,7 @@ class CharacterRepository: CharacterRequirement {
         let characterResponse = try await CharacterAPIService.shared.fetchCharacters(url: url)
         self.totalPages = characterResponse.meta.totalPages
         let fetchedCharacters = characterResponse.items
+        self.allCharacters.append(contentsOf: fetchedCharacters)
         self.currentPage += 1
         return fetchedCharacters
     }
@@ -55,5 +58,8 @@ class CharacterRepository: CharacterRequirement {
         
         return components.url
     }
+    
+    func getAllCharacters() -> [Character] {
+        return allCharacters
+    }
 }
-

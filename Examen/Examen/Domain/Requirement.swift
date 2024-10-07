@@ -10,4 +10,5 @@ import Foundation
 protocol CharacterRequirement {
     func getCharacters(reset: Bool) async throws -> [Character]
     func canFetchMore() -> Bool
+    func getAllCharacters() -> [Character]
 }
