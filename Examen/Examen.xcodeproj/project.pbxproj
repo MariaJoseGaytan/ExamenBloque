@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AE69CC1F2CB203DD004E3CC4 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AE69CC1E2CB203DD004E3CC4 /* SDWebImageSwiftUI */; };
-		AE69CC482CB204DD004E3CC4 /* FlowStacks in Frameworks */ = {isa = PBXBuildFile; productRef = AE69CC472CB204DD004E3CC4 /* FlowStacks */; };
 		AE9274752CB2010400757349 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AE9274742CB2010400757349 /* Alamofire */; };
+		AEEE17582CB41266003B834B /* FlowStacks in Frameworks */ = {isa = PBXBuildFile; productRef = AEEE17572CB41266003B834B /* FlowStacks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 			files = (
 				AE69CC1F2CB203DD004E3CC4 /* SDWebImageSwiftUI in Frameworks */,
 				AE9274752CB2010400757349 /* Alamofire in Frameworks */,
-				AE69CC482CB204DD004E3CC4 /* FlowStacks in Frameworks */,
+				AEEE17582CB41266003B834B /* FlowStacks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,7 +123,7 @@
 			packageProductDependencies = (
 				AE9274742CB2010400757349 /* Alamofire */,
 				AE69CC1E2CB203DD004E3CC4 /* SDWebImageSwiftUI */,
-				AE69CC472CB204DD004E3CC4 /* FlowStacks */,
+				AEEE17572CB41266003B834B /* FlowStacks */,
 			);
 			productName = Examen;
 			productReference = AE9273B32CB1F8E600757349 /* Examen.app */;
@@ -210,7 +210,7 @@
 			packageReferences = (
 				AE9274732CB2010400757349 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				AE69CC1D2CB203DD004E3CC4 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				AE69CC462CB204DD004E3CC4 /* XCRemoteSwiftPackageReference "FlowStacks" */,
+				AEEE17562CB41266003B834B /* XCRemoteSwiftPackageReference "FlowStacks" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AE9273B42CB1F8E600757349 /* Products */;
@@ -585,20 +585,20 @@
 				minimumVersion = 3.1.2;
 			};
 		};
-		AE69CC462CB204DD004E3CC4 /* XCRemoteSwiftPackageReference "FlowStacks" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/johnpatrickmorgan/FlowStacks";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.8.2;
-			};
-		};
 		AE9274732CB2010400757349 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.9.1;
+			};
+		};
+		AEEE17562CB41266003B834B /* XCRemoteSwiftPackageReference "FlowStacks" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/johnpatrickmorgan/FlowStacks";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -609,15 +609,15 @@
 			package = AE69CC1D2CB203DD004E3CC4 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
 		};
-		AE69CC472CB204DD004E3CC4 /* FlowStacks */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AE69CC462CB204DD004E3CC4 /* XCRemoteSwiftPackageReference "FlowStacks" */;
-			productName = FlowStacks;
-		};
 		AE9274742CB2010400757349 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AE9274732CB2010400757349 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		AEEE17572CB41266003B834B /* FlowStacks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AEEE17562CB41266003B834B /* XCRemoteSwiftPackageReference "FlowStacks" */;
+			productName = FlowStacks;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

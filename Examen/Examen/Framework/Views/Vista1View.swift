@@ -10,8 +10,18 @@ import SwiftUI
 struct Vista1: View {
     var body: some View {
         NavigationView {
-            Text("Contenido de Vista 1")
-                .navigationTitle("Vista 1")
+            VStack {
+                Text("Contenido de Vista 1")
+                    .navigationTitle("Vista 1")
+
+                NavigationLink(destination: Vista3()) {
+                    Text("Ir a Vista 3")
+                        .foregroundColor(.blue)
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                }
+            }
         }
     }
 }
