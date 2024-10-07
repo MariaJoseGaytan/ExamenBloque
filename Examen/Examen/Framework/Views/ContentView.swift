@@ -12,35 +12,53 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.characters, id: \.id) { character in
-                HStack {
-                    AsyncImage(url: URL(string: character.image)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 50, height: 50)
-                    } placeholder: {
-                        ProgressView()
+            List {
+                ForEach(viewModel.characters) { character in
+                    HStack {
+                        AsyncImage(url: URL(string: character.image)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50, height: 50)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text(character.name)
+                                .font(.headline)
+                            Text(character.race)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
                     }
-                    
-                    VStack(alignment: .leading) {
-                        Text(character.name)
-                            .font(.headline)
-                        Text(character.race)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                    .padding(.vertical, 8)
+                    .onAppear {
+                        viewModel.loadMoreIfNeeded(currentItem: character)
                     }
                 }
-                .padding(.vertical, 8)
+                
+                if viewModel.isLoading {
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                }
             }
             .navigationTitle("Dragon Ball Characters")
             .onAppear {
-                viewModel.fetchCharacters()
+                viewModel.fetchCharacters(reset: true)
             }
-            .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
-                Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "Unknown error"), dismissButton: .default(Text("OK"), action: {
-                    viewModel.errorMessage = nil
-                }))
+            .alert(isPresented: Binding<Bool>(
+                get: { viewModel.errorMessage != nil },
+                set: { _ in viewModel.errorMessage = nil }
+            )) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(viewModel.errorMessage ?? "Unknown error"),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
     }
@@ -51,4 +69,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-

@@ -9,27 +9,46 @@ import Foundation
 import Combine
 
 
+@MainActor
 class CharacterViewModel: ObservableObject {
     @Published var characters: [Character] = []
     @Published var errorMessage: String?
+    @Published var isLoading: Bool = false
     
     private let characterRepository: CharacterRequirement
-
+    
     init(characterRepository: CharacterRequirement = CharacterRepository()) {
         self.characterRepository = characterRepository
     }
     
-    func fetchCharacters() {
+    func fetchCharacters(reset: Bool = false) {
+        guard !isLoading else { return }
+        if reset {
+            characters = []
+        }
+        isLoading = true
         Task {
             do {
-                let fetchedCharacters = try await characterRepository.getCharacters()
-                DispatchQueue.main.async {
-                    self.characters = fetchedCharacters
-                }
+                let fetchedCharacters = try await characterRepository.getCharacters(reset: reset)
+                characters.append(contentsOf: fetchedCharacters)
+                isLoading = false
             } catch {
-                DispatchQueue.main.async {
-                    self.errorMessage = error.localizedDescription
-                }
+                errorMessage = error.localizedDescription
+                isLoading = false
+            }
+        }
+    }
+    
+    func loadMoreIfNeeded(currentItem: Character?) {
+        guard let currentItem = currentItem else {
+            fetchCharacters()
+            return
+        }
+        
+        let thresholdIndex = characters.index(characters.endIndex, offsetBy: -5)
+        if characters.firstIndex(where: { $0.id == currentItem.id }) == thresholdIndex {
+            if characterRepository.canFetchMore() {
+                fetchCharacters()
             }
         }
     }

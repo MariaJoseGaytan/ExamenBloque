@@ -8,5 +8,6 @@
 import Foundation
 
 protocol CharacterRequirement {
-    func getCharacters() async throws -> [Character]
+    func getCharacters(reset: Bool) async throws -> [Character]
+    func canFetchMore() -> Bool
 }

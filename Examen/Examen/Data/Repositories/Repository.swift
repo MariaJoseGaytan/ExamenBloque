@@ -9,14 +9,51 @@ import Foundation
 
 class CharacterRepository: CharacterRequirement {
     
-    func getCharacters() async throws -> [Character] {
-        guard let url = URL(string: "\(Api.base)\(Api.Routes.characters)") else {
+    private var currentPage = 1
+    private let limit = 10
+    private var totalPages = 1
+    private var isFetching = false
+    
+    func getCharacters(reset: Bool = false) async throws -> [Character] {
+        if reset {
+            currentPage = 1
+            totalPages = 1
+        }
+        
+        guard !isFetching else { return [] }
+        guard currentPage <= totalPages else { return [] }
+        
+        isFetching = true
+        defer { isFetching = false }
+        
+        guard let url = constructURL(page: currentPage, limit: limit) else {
             throw URLError(.badURL)
         }
-        print("URL generada: \(url)")
+        
+        print("URL solicitada: \(url)")
         
         let characterResponse = try await CharacterAPIService.shared.fetchCharacters(url: url)
-        return characterResponse.items
+        self.totalPages = characterResponse.meta.totalPages
+        let fetchedCharacters = characterResponse.items
+        self.currentPage += 1
+        return fetchedCharacters
+    }
+    
+    func canFetchMore() -> Bool {
+        return currentPage <= totalPages && !isFetching
+    }
+    
+    private func constructURL(page: Int, limit: Int) -> URL? {
+        guard var components = URLComponents(string: "\(Api.base)\(Api.Routes.characters)") else {
+            return nil
+        }
+        
+        components.queryItems = [
+            URLQueryItem(name: "page", value: "\(page)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+        
+        return components.url
     }
 }
 
