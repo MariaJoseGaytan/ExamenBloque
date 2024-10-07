@@ -32,7 +32,6 @@ class CharacterRepository: CharacterRequirement {
             throw URLError(.badURL)
         }
         
-        print("URL solicitada: \(url)")
         
         let characterResponse = try await CharacterAPIService.shared.fetchCharacters(url: url)
         self.totalPages = characterResponse.meta.totalPages
