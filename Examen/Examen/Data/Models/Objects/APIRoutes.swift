@@ -13,5 +13,6 @@ struct Api {
     
     struct Routes {
         static let characters = "/characters"
+        static let planets = "/planets"
     }
 }
