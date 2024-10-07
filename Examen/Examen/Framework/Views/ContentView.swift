@@ -8,21 +8,47 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = CharacterViewModel()
+    
     var body: some View {
-        TabView {
-            Vista1()
-                .tabItem {
-                    Label("Vista 1", systemImage: "1.circle")
+        NavigationView {
+            List(viewModel.characters, id: \.id) { character in
+                HStack {
+                    AsyncImage(url: URL(string: character.image)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text(character.name)
+                            .font(.headline)
+                        Text(character.race)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
                 }
-
-            Vista2()
-                .tabItem {
-                    Label("Vista 2", systemImage: "2.circle")
-                }
+                .padding(.vertical, 8)
+            }
+            .navigationTitle("Dragon Ball Characters")
+            .onAppear {
+                viewModel.fetchCharacters()
+            }
+            .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
+                Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "Unknown error"), dismissButton: .default(Text("OK"), action: {
+                    viewModel.errorMessage = nil
+                }))
+            }
         }
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
+
