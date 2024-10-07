@@ -43,30 +43,32 @@ struct ContentView: View {
                     // Lista de Personajes
                     List {
                         ForEach(viewModel.characters) { character in
-                            HStack {
-                                AsyncImage(url: URL(string: character.image)) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 50, height: 50)
-                                        .cornerRadius(8)
-                                } placeholder: {
-                                    ProgressView()
-                                        .frame(width: 50, height: 50)
+                            NavigationLink(destination: CharacterDetailView(character: character)) {
+                                HStack {
+                                    AsyncImage(url: URL(string: character.image)) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 50, height: 50)
+                                            .cornerRadius(8)
+                                    } placeholder: {
+                                        ProgressView()
+                                            .frame(width: 50, height: 50)
+                                    }
+                                    
+                                    VStack(alignment: .leading) {
+                                        Text(character.name)
+                                            .font(.headline)
+                                        Text(character.affiliation)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                        Text(character.gender)
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
                                 }
-                                
-                                VStack(alignment: .leading) {
-                                    Text(character.name)
-                                        .font(.headline)
-                                    Text(character.affiliation)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                    Text(character.gender)
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                }
+                                .padding(.vertical, 8)
                             }
-                            .padding(.vertical, 8)
                             .onAppear {
                                 viewModel.loadMoreIfNeeded(currentItem: character)
                             }
