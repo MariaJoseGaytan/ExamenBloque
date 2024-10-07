@@ -31,47 +31,57 @@ struct ContentView: View {
                 
                 Divider()
                 
-                // Lista de Personajes
-                List {
-                    ForEach(viewModel.characters) { character in
-                        HStack {
-                            AsyncImage(url: URL(string: character.image)) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 50, height: 50)
-                                    .cornerRadius(8)
-                            } placeholder: {
+                // Verificación de la lista de personajes
+                if viewModel.characters.isEmpty && !viewModel.isLoading {
+                    Spacer()
+                    Text("No se encontraron personajes con esos filtros.")
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    Spacer()
+                } else {
+                    // Lista de Personajes
+                    List {
+                        ForEach(viewModel.characters) { character in
+                            HStack {
+                                AsyncImage(url: URL(string: character.image)) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 50, height: 50)
+                                        .cornerRadius(8)
+                                } placeholder: {
+                                    ProgressView()
+                                        .frame(width: 50, height: 50)
+                                }
+                                
+                                VStack(alignment: .leading) {
+                                    Text(character.name)
+                                        .font(.headline)
+                                    Text(character.affiliation)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                    Text(character.gender)
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .padding(.vertical, 8)
+                            .onAppear {
+                                viewModel.loadMoreIfNeeded(currentItem: character)
+                            }
+                        }
+                        
+                        if viewModel.isLoading {
+                            HStack {
+                                Spacer()
                                 ProgressView()
-                                    .frame(width: 50, height: 50)
-                            }
-                            
-                            VStack(alignment: .leading) {
-                                Text(character.name)
-                                    .font(.headline)
-                                Text(character.affiliation)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                Text(character.gender)
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
+                                Spacer()
                             }
                         }
-                        .padding(.vertical, 8)
-                        .onAppear {
-                            viewModel.loadMoreIfNeeded(currentItem: character)
-                        }
                     }
-                    
-                    if viewModel.isLoading {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                    }
+                    .listStyle(PlainListStyle())
                 }
-                .listStyle(PlainListStyle())
             }
             .navigationTitle("Dragon Ball Characters")
             .onAppear {
